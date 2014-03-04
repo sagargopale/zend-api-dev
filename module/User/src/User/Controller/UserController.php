@@ -12,6 +12,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Swagger\Annotations as SWG;
 use Zend\View\Model\JsonModel;
 use Zend\Json\Json;
+use Zend\Mvc\Controller\AbstractRestfulController;
 /**
  *
  * @package
@@ -26,7 +27,7 @@ use Zend\Json\Json;
  *             produces="['application/json','text/plain','text/html']"
  *             )
  */
-class UserController extends AbstractActionController
+class UserController extends AbstractRestfulController
 {
 
     public function indexAction()
@@ -75,22 +76,18 @@ class UserController extends AbstractActionController
             $user->setPassword($content->password);
             $em->persist($user); 
             $em->flush();   
-            echo $user->getEmail();
-            return new JsonModel($user);
         }
+        return new JsonModel($user);
     }
     
     public function getAction()
     {
-        
+        $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
         $id = $this->getEvent()->getRouteMatch()->getParam('id');
-        $em = \Doctrine\ORM\EntityManager::create('User');
-    	/* $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager'); */
     	$query = $em->createQuery('SELECT u FROM User\Entity\User u WHERE u.id = ?1');
     	$query->setParameter(1, $id);
     	//$user = Doctrine_Core::getTable('User')->find($id);
-    	
-    	//$user = $query->getResult();
+    	$user = $query->getResult();
     	return new JsonModel($user);
     }
     

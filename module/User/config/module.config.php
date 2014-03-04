@@ -30,8 +30,9 @@ return array(
                     // you may want to remove it and replace it with more
                     // specific routes.
                      'add' => array(
-                     		'type'    => 'Segment',
+                     		'type'    => 'Method',
                      		'options' => array(
+                     		        'verb' => 'put',
                      				'route'    => '/add',
                      				'defaults' => array(
                      						'__NAMESPACE__' => 'User\Controller',
@@ -43,7 +44,6 @@ return array(
                      'get' => array(
                      		'type'    => 'Segment',
                      		'options' => array(
-                     				'verb' => 'get',
                      				'route'    => '/get[/:id]',
                      				'constraints' => array(
                      						'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -59,9 +59,8 @@ return array(
                      'update' => array(
                      		'type'    => 'Method',
                      		'options' => array(
-                     				'verb' => 'get,put',
+                     		        'verb' => 'put',
                      				'route'    => '/update[/:id]',
-                     
                      				'constraints' => array(
                      						'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                      						'id'     => '[0-9]*',
