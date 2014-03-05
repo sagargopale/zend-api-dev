@@ -62,8 +62,7 @@ class UserController extends AbstractRestfulController
         $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
         $user = new \User\Entity\User();
         if ($this->getRequest()->isPut()) {
-            $body = $this->getRequest()->getContent();
-            $content = Json::decode($body, Json::TYPE_OBJECT);
+            $content = Json::decode($data, Json::TYPE_OBJECT);
             $user->setFirstName($content->firstName);
             $user->setLastName($content->lastName);
             $user->setEmail($content->email);
