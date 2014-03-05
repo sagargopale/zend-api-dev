@@ -29,12 +29,6 @@ use Zend\Mvc\Controller\AbstractRestfulController;
  */
 class UserController extends AbstractRestfulController
 {
-
-    public function indexAction()
-    {
-        return array();
-    }
-
     /**
      * @SWG\Api(
          * path="/pet/create",
@@ -56,14 +50,14 @@ class UserController extends AbstractRestfulController
          * )
      * )
      */
-    public function viewAction()
+    public function getList()
     {
         $om = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
         $users = $om->getRepository('User\Entity\User')->findAll();
         return new JsonModel($users);
     }
     
-    public function addAction()
+    public function add($data)
     {
         $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
         $user = new \User\Entity\User();
@@ -80,7 +74,7 @@ class UserController extends AbstractRestfulController
         return new JsonModel($user);
     }
     
-    public function getAction()
+    public function get($id)
     {
         $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
         $id = $this->getEvent()->getRouteMatch()->getParam('id');
@@ -91,14 +85,14 @@ class UserController extends AbstractRestfulController
     	return new JsonModel($user);
     }
     
-    public function updateAction($id, $data)
+    public function update($id, $data)
     {
     	$om = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
     	$user = $om->find('User\Entity\User', $id);
     	return new JsonModel($user);
     }
     
-    public function deleteAction($id)
+    public function delete($id)
     {
     	$om = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
     	$user = $om->find('User\Entity\User', $id);
