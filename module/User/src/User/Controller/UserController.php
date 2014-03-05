@@ -57,27 +57,22 @@ class UserController extends AbstractRestfulController
         return new JsonModel($users);
     }
     
-    public function add($data)
+    public function create($data)
     {
-        $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+         $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
         $user = new \User\Entity\User();
-        if ($this->getRequest()->isPut()) {
-            $body = $this->getRequest()->getContent();
-            $content = Json::decode($body, Json::TYPE_OBJECT);
-            $user->setFirstName($content->firstName);
-            $user->setLastName($content->lastName);
-            $user->setEmail($content->email);
-            $user->setPassword($content->password);
+        if ($this->getRequest()->isPost()) {
+            $user->setData($data);
             $em->persist($user); 
-            $em->flush();   
+            $em->flush();
         }
-        return new JsonModel($user);
+        $response = $this->getResponse()->setContent(Json::encode($user));
+        return $response;
     }
     
     public function get($id)
     {
         $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-        $id = $this->getEvent()->getRouteMatch()->getParam('id');
     	$query = $em->createQuery('SELECT u FROM User\Entity\User u WHERE u.id = ?1');
     	$query->setParameter(1, $id);
     	//$user = Doctrine_Core::getTable('User')->find($id);
@@ -87,9 +82,10 @@ class UserController extends AbstractRestfulController
     
     public function update($id, $data)
     {
-    	$om = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+        
+    	/* $om = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
     	$user = $om->find('User\Entity\User', $id);
-    	return new JsonModel($user);
+    	return new JsonModel($user); */
     }
     
     public function delete($id)

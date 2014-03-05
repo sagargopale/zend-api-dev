@@ -79,4 +79,11 @@ class User implements \JsonSerializable {
 		];
 	}
 	
+	public function setData($data) {
+	   $this->setFirstName($data['firstName']);
+	   $this->setLastName($data['lastName']);
+	   $this->setEmail($data['email']);
+	   $this->setPassword($data['password']);
+	}
+	
 }

@@ -9,7 +9,7 @@ return array(
     ),
     'router' => array(
         'routes' => array(
-            'view' => array(
+        'view' => array(
                 'type'    => 'Segment',
                 'options' => array(
                     'route'    => '/user[/:id]',
@@ -19,9 +19,9 @@ return array(
                     'defaults' => array(
                         'controller'    => 'User\Controller\User',
                     ),
-                ),  
-            ),      
-        ),
+                ),
+            ),
+        ), 
     ),
     'view_manager' => array(
         'template_path_stack' => array(
