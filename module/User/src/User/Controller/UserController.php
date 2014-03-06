@@ -101,15 +101,11 @@ class UserController extends AbstractRestfulController
     {
         echo $id;
         $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-        //$userData = $em->find('User\Model\User', $id);
-        $query = $em->createQueryBuilder();//createQuery('SELECT u FROM User\Entity\User u WHERE u.id = ?1');
+        $query = $em->createQueryBuilder();
         $query->delete("User");
         $query->andWhere($query->expr()->eq("id", $id));
         $em->flush();
         $response = $this->getResponse()->setContent("user deleted");
         return $response;
-    	/* $om = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-    	$user = $om->find('User\Entity\User', $id);
-    	return new JsonModel($user); */
     }
 }
