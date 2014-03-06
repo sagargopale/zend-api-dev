@@ -13,11 +13,14 @@ use Swagger\Annotations as SWG;
 use Zend\View\Model\JsonModel;
 use Zend\Json\Json;
 use Zend\Mvc\Controller\AbstractRestfulController;
+
 /**
  *
  * @package
  *
+ *
  * @category
+ *
  *
  * @subpackage @SWG\Resource(
  *             apiVersion="1.0.0",
@@ -29,72 +32,100 @@ use Zend\Mvc\Controller\AbstractRestfulController;
  */
 class UserController extends AbstractRestfulController
 {
+
     /**
      * @SWG\Api(
-         * path="/pet/create",
-         * @SWG\Operation(
-             * method="POST",
-             * summary="Create test user",
-             * type="User",
-             * nickname="createTestUser",
-             * @SWG\Parameter(
-                 * name="userData",
-                 * description="Data of the user to be created",
-                 * required=true,
-                 * type="User",
-                 * format="int64",
-                 * paramType="body"
-             * ),
-             * @SWG\ResponseMessage(code=400, message="Invalid parameters passed"),
-             * @SWG\ResponseMessage(code=404, message="User not found")
-         * )
+     * path="/pet/create",
+     * @SWG\Operation(
+     * method="POST",
+     * summary="Create test user",
+     * type="User",
+     * nickname="createTestUser",
+     * @SWG\Parameter(
+     * name="userData",
+     * description="Data of the user to be created",
+     * required=true,
+     * type="User",
+     * format="int64",
+     * paramType="body"
+     * ),
+     * @SWG\ResponseMessage(code=400, message="Invalid parameters passed"),
+     * @SWG\ResponseMessage(code=404, message="User not found")
+     * )
      * )
      */
     public function getList()
     {
-        $om = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-        $users = $om->getRepository('User\Entity\User')->findAll();
+        $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+        $users = $em->getRepository('User\Entity\User')->findAll();
         return new JsonModel($users);
     }
-    
-    public function add($data)
+
+    public function create($data)
     {
         $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
         $user = new \User\Entity\User();
-        if ($this->getRequest()->isPut()) {
-            $content = Json::decode($data, Json::TYPE_OBJECT);
-            $user->setFirstName($content->firstName);
-            $user->setLastName($content->lastName);
-            $user->setEmail($content->email);
-            $user->setPassword($content->password);
-            $em->persist($user); 
-            $em->flush();   
+        if ($this->getRequest()->isPost()) {
+            $user->setData($data);
+            $em->persist($user);
+            $em->flush();
         }
-        return new JsonModel($user);
+        $response = $this->getResponse()->setContent(Json::encode($user));
+        return $response;
     }
-    
+
     public function get($id)
     {
         $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-        $id = $this->getEvent()->getRouteMatch()->getParam('id');
-    	$query = $em->createQuery('SELECT u FROM User\Entity\User u WHERE u.id = ?1');
-    	$query->setParameter(1, $id);
-    	//$user = Doctrine_Core::getTable('User')->find($id);
-    	$user = $query->getResult();
-    	return new JsonModel($user);
+        $query = $em->createQuery('SELECT u FROM User\Entity\User u WHERE u.id = ?1');
+        $query->setParameter(1, $id);
+        $user = $query->getResult();
+        return new JsonModel($user);
     }
-    
+
     public function update($id, $data)
     {
-    	$om = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-    	$user = $om->find('User\Entity\User', $id);
-    	return new JsonModel($user);
+        /*
+         * $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager'); $user = $em->find('User\Entity\User', $id); return new JsonModel($user);
+         */
     }
-    
+
     public function delete($id)
     {
-    	$om = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-    	$user = $om->find('User\Entity\User', $id);
-    	return new JsonModel($user);
+        $responseArray = null;
+        $response = $this->getResponse();
+        try {
+            $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+            $user = $em->find('User\Entity\User', $id);
+            if ($user == null) {
+                $responseArray = array(
+                    'status' => '404',
+                    'message' => 'User not found!'
+                );
+                $response->setContent(Json::encode($responseArray));
+                return $response;
+            }
+            $qb = $em->createQueryBuilder();
+            $query = $qb->delete('User\Entity\User', 'u')
+                ->add('where', 'u.id = :userId')
+                ->setParameter('userId', $id)
+                ->getQuery();
+            $resultArray = $query->getResult();
+            if ($resultArray == 1) {
+                $responseArray = array(
+                    'status' => '200',
+                    'message' => 'User successfully removed!'
+                );
+            } else {
+                $responseArray = array(
+                    'status' => '500',
+                    'message' => 'Some error occured. Please try after sometime.'
+                );
+            }
+            $response->setContent(Json::encode($responseArray));
+            return $response;
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
     }
 }
