@@ -94,9 +94,7 @@ class UserController extends AbstractRestfulController
 
     public function update($id, $data)
     {
-        /*
-         * $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager'); $user = $em->find('User\Entity\User', $id); return new JsonModel($user);
-         */
+        
     }
 
     public function delete($id)
