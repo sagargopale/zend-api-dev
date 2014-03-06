@@ -82,16 +82,43 @@ class UserController extends AbstractRestfulController
     
     public function update($id, $data)
     {
+        $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');        
+        $userData = $em->find('User\Model\User', $id);
+        if ($this->getRequest()->isPut()) {
+        	$userData->setData($data);
+        	$em->persist($user);
+        	$em->flush();
+        }
+        /* $album->setArtist($data['artist']);
+        $album->setTitle($data['title']);
+         */
+        $userData = $em->merge($userData);
+        $em->flush();
         
+        return new JsonModel(array(
+        		'data' => $album->getId(),
+        ));
     	/* $om = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
     	$user = $om->find('User\Entity\User', $id);
     	return new JsonModel($user); */
     }
     
     public function delete($id)
-    {
-    	$om = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-    	$user = $om->find('User\Entity\User', $id);
-    	return new JsonModel($user);
+    {   
+        /* $user = $objectManager->getRepository('User\Entity\User')->findOneBy(array('id' => $id));
+        $objectManager->remove($user);
+        $objectManager->flush();
+ */     
+        echo $id;
+        $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+        echo "d1";
+        $user = $em->find('User\Entity\User', $id);
+        echo "d2"; 
+        //echo $user;
+        $em->remove($user);
+        $em->flush(); 
+        $response = $this->getResponse()->setContent("user deleted");
+        return $response;
+        
     }
 }
