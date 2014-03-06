@@ -126,7 +126,7 @@ class UserController extends AbstractRestfulController
             } else {
                 $responseArray = array(
                     'status' => '500',
-                    'message' => 'Some error occured. Please try after sometime.'
+                    'message' => 'Some error occured. Please try after Some time.'
                 );
             }
             $response->setContent(Json::encode($responseArray));
