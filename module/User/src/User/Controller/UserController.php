@@ -57,7 +57,16 @@ class UserController extends AbstractRestfulController
     public function getList()
     {
         $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+        $response = $this->getResponse();
         $users = $em->getRepository('User\Entity\User')->findAll();
+        if ($users == null) {
+        	$responseArray = array(
+        			'status' => '404',
+        			'message' => 'No users found!'
+        	);
+        	$response->setContent(Json::encode($responseArray));
+        	return $response;
+        }
         return new JsonModel($users);
     }
 
@@ -126,6 +135,12 @@ class UserController extends AbstractRestfulController
             return $response;
         } catch (\Exception $e) {
             echo $e->getMessage();
+            $responseArray = array(
+            		'status' => '500',
+            		'message' => 'Some error occured. Please try after sometime.'
+            );
+            $response->setContent(Json::encode($responseArray));
+            return $response;
         }
     }
 }
