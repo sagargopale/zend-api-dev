@@ -11,13 +11,16 @@ use Swagger\Annotations as SWG;
  *  */
 class User implements \JsonSerializable {
 	/**
+	 * @SWG\Property(name="id",type="integer",description="Unique identifier for the User")
 	 * @ORM\Id
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 * @ORM\Column(type="integer")
 	 */
 	private $id;
 
-	/** @ORM\Column(type="string") */
+	/** 
+	 * @ORM\Column(type="string") 
+	 * */
 	private $firstName;
 
 	/** @ORM\Column(type="string") */

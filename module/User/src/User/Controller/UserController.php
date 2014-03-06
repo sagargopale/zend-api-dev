@@ -31,7 +31,7 @@ class UserController extends AbstractRestfulController
 {
     /**
      * @SWG\Api(
-         * path="/pet/create",
+         * path="/user/create",
          * @SWG\Operation(
              * method="POST",
              * summary="Create test user",
@@ -82,30 +82,66 @@ class UserController extends AbstractRestfulController
     
     public function update($id, $data)
     {
-        $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');        
-        $userData = $em->find('User\Model\User', $id);
-        if ($this->getRequest()->isPut()) {
-        	$userData->setData($data);
-        	$em->persist($user);
-        	$em->flush();
+        $response = $this->getResponse();
+        $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager'); 
+        $user = $em->find('User\Entity\User', $id);
+        if ($user == null) {
+        	$responseArray = array(
+        			'status' => '404',
+        			'message' => 'User not found!'
+        	);
+        	$response->setContent(Json::encode($responseArray));
+        	return $response;
         }
-        $userData = $em->merge($userData);
-        $em->flush();
-        
-        return new JsonModel(array(
-        		'data' => $album->getId(),
-        ));
+        $user->setData($data);
+        $user = $em->merge($user);
+        $em->flush(); 
+        $response = $this->getResponse()->setContent(Json::encode($user));
+        return $response;
     }
     
     public function delete($id)
     {
-        echo $id;
-        $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-        $query = $em->createQueryBuilder();
-        $query->delete("User");
-        $query->andWhere($query->expr()->eq("id", $id));
-        $em->flush();
-        $response = $this->getResponse()->setContent("user is deleted");
-        return $response;
+        $responseArray = null;
+        $response = $this->getResponse();
+        try {
+            $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+            $user = $em->find('User\Entity\User', $id);
+            if ($user == null) {
+                $responseArray = array(
+                    'status' => '404',
+                    'message' => 'User not found!'
+                );
+                $response->setContent(Json::encode($responseArray));
+                return $response;
+            }
+            $qb = $em->createQueryBuilder();
+            $query = $qb->delete('User\Entity\User', 'u')
+                ->add('where', 'u.id = :userId')
+                ->setParameter('userId', $id)
+                ->getQuery();
+            $resultArray = $query->getResult();
+            if ($resultArray == 1) {
+                $responseArray = array(
+                    'status' => '200',
+                    'message' => 'User successfully removed!'
+                );
+            } else {
+                $responseArray = array(
+                    'status' => '500',
+                    'message' => 'Some error occured. Please try after Some time.'
+                );
+            }
+            $response->setContent(Json::encode($responseArray));
+            return $response;
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+            $responseArray = array(
+            		'status' => '500',
+            		'message' => 'Some error occured. Please try after sometime.'
+            );
+            $response->setContent(Json::encode($responseArray));
+            return $response;
+        }
     }
 }

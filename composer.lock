@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "08e32dbe67a99364d111c200e0a4e129",
+    "hash": "9681ee056432b9db0c546647eeb51228",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1185,47 +1185,6 @@
                 "xml"
             ],
             "time": "2013-12-05 14:36:11"
-        },
-        {
-            "name": "outeredge/swagger-module",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/outeredge/SwaggerModule.git",
-                "reference": "73c3f331ffd25ac53fccbfc20df47388f82098b7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/outeredge/SwaggerModule/zipball/73c3f331ffd25ac53fccbfc20df47388f82098b7",
-                "reference": "73c3f331ffd25ac53fccbfc20df47388f82098b7",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "zircote/swagger-php": "~0.9.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "SwaggerModule": "src/"
-                },
-                "classmap": [
-                    "./"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "description": "Zend Framework 2 Module for Swagger resource file generation",
-            "homepage": "https://github.com/outeredge/SwaggerModule",
-            "keywords": [
-                "api",
-                "rest",
-                "swagger",
-                "zf2"
-            ],
-            "time": "2014-02-06 10:20:28"
         },
         {
             "name": "phpcollection/phpcollection",
@@ -2552,7 +2511,6 @@
     "stability-flags": {
         "zendframework/zendframework": 5,
         "zendframework/zend-developer-tools": 20,
-        "outeredge/swagger-module": 20,
         "doctrine/migrations": 20,
         "doctrine/doctrine-migrations-bundle": 20
     },

@@ -12,9 +12,9 @@
         "zendframework/zendframework": ">2.2.0rc1",
         "doctrine/doctrine-orm-module": "0.7.*",
         "zendframework/zend-developer-tools": "dev-master",
-        "outeredge/swagger-module": "dev-master",
         "doctrine/migrations": "dev-master",
         "doctrine/doctrine-migrations-bundle": "dev-master",
-        "jms/serializer-bundle": "0.13.0"
+        "jms/serializer-bundle": "0.13.0",
+         "zircote/swagger-php": "*"
     }
 }
