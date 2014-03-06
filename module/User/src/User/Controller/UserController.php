@@ -105,7 +105,7 @@ class UserController extends AbstractRestfulController
         $query->delete("User");
         $query->andWhere($query->expr()->eq("id", $id));
         $em->flush();
-        $response = $this->getResponse()->setContent("user deleted");
+        $response = $this->getResponse()->setContent("user is deleted");
         return $response;
     }
 }
