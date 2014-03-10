@@ -8,6 +8,7 @@ return array(
         'Application',
         'user',
         'SwaggerModule',
+        'SwaggerExample'
     ),
 
     // These are various options for the listeners attached to the ModuleManager

@@ -3,6 +3,7 @@
 namespace User\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Swagger\Annotations as SWG;
+use Address\Entity\Address;
 
 /** 
  *  @SWG\Model(id="user",
@@ -31,6 +32,11 @@ class User implements \JsonSerializable {
 
 	/** @ORM\Column(type="string") */
 	private $password;
+	
+	/**
+	 *  @ORM\OneToMany(targetEntity="Address", mappedBy="user")
+	 * */
+	protected $addressList;
 	
 	public function getId() {
 		return $this->id;
@@ -79,6 +85,7 @@ class User implements \JsonSerializable {
 		'lastName' => $this->getLastName(),
 		'email' => $this->getEmail(),
 		'password' => $this->getPassword(),
+		
 		];
 	}
 	
@@ -87,6 +94,7 @@ class User implements \JsonSerializable {
 	   $this->setLastName($data['lastName']);
 	   $this->setEmail($data['email']);
 	   $this->setPassword($data['password']);
+	   $this->address();
 	}
 	
 }

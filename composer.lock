@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "9681ee056432b9db0c546647eeb51228",
+    "hash": "84fe685f12ebb8a34422d75f2d8caf47",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1187,6 +1187,83 @@
             "time": "2013-12-05 14:36:11"
         },
         {
+            "name": "kbrabrand/zf2-swagger-example-module",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kbrabrand/zf2-swagger-example-module.git",
+                "reference": "869831a9950740f248fa278efa4fbbd550d035f1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kbrabrand/zf2-swagger-example-module/zipball/869831a9950740f248fa278efa4fbbd550d035f1",
+                "reference": "869831a9950740f248fa278efa4fbbd550d035f1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "SwaggerExample": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Dummy API module ZF2 showing example usage of the Swagger PHP annotations for models and controllers.",
+            "homepage": "https://github.com/kbrabrand/zf2-swagger-example-module",
+            "keywords": [
+                "example",
+                "swagger",
+                "zf2"
+            ],
+            "time": "2014-02-22 22:57:32"
+        },
+        {
+            "name": "outeredge/swagger-module",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/outeredge/SwaggerModule.git",
+                "reference": "23c63cd20782f40baf9736873333c021b82f00e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/outeredge/SwaggerModule/zipball/23c63cd20782f40baf9736873333c021b82f00e4",
+                "reference": "23c63cd20782f40baf9736873333c021b82f00e4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "zircote/swagger-php": "~0.9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "SwaggerModule": "src/"
+                },
+                "classmap": [
+                    "./"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Zend Framework 2 Module for Swagger resource file generation",
+            "homepage": "https://github.com/outeredge/SwaggerModule",
+            "keywords": [
+                "api",
+                "rest",
+                "swagger",
+                "zf2"
+            ],
+            "time": "2014-03-06 18:12:29"
+        },
+        {
             "name": "phpcollection/phpcollection",
             "version": "0.2.0",
             "source": {
@@ -2331,20 +2408,21 @@
         },
         {
             "name": "zendframework/zendframework",
-            "version": "2.2.5",
+            "version": "2.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zf2.git",
-                "reference": "4a7cf6a4cf791244e14aa0ca49d1f06916b63202"
+                "reference": "5eae447d46b00a280573b94c398b2f46f45a6903"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zf2/zipball/4a7cf6a4cf791244e14aa0ca49d1f06916b63202",
-                "reference": "4a7cf6a4cf791244e14aa0ca49d1f06916b63202",
+                "url": "https://api.github.com/repos/zendframework/zf2/zipball/5eae447d46b00a280573b94c398b2f46f45a6903",
+                "reference": "5eae447d46b00a280573b94c398b2f46f45a6903",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=5.3.3",
+                "zendframework/zendxml": "~1.0-dev"
             },
             "replace": {
                 "zendframework/zend-authentication": "self.version",
@@ -2442,7 +2520,52 @@
                 "framework",
                 "zf2"
             ],
-            "time": "2013-10-31 15:48:16"
+            "time": "2014-03-06 17:27:03"
+        },
+        {
+            "name": "zendframework/zendxml",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/ZendXml.git",
+                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "*@dev",
+                "phpunit/phpunit": "~3.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "ZendXml": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Utility library for XML usage, best practices, and security in PHP",
+            "homepage": "http://packages.zendframework.com/",
+            "keywords": [
+                "security",
+                "xml",
+                "zf2"
+            ],
+            "time": "2014-03-05 22:25:44"
         },
         {
             "name": "zircote/swagger-php",
@@ -2512,7 +2635,9 @@
         "zendframework/zendframework": 5,
         "zendframework/zend-developer-tools": 20,
         "doctrine/migrations": 20,
-        "doctrine/doctrine-migrations-bundle": 20
+        "doctrine/doctrine-migrations-bundle": 20,
+        "outeredge/swagger-module": 20,
+        "kbrabrand/zf2-swagger-example-module": 20
     },
     "platform": {
         "php": ">=5.3.3"

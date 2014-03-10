@@ -57,9 +57,30 @@ class UserController extends AbstractRestfulController
         return new JsonModel($users);
     }
     
+    /**
+     * @SWG\Api(
+     * path="/user/create",
+     * @SWG\Operation(
+     * method="POST",
+     * summary="Create test user",
+     * type="User",
+     * nickname="createTestUser",
+     * @SWG\Parameter(
+     * name="userData",
+     * description="Data of the user to be created",
+     * required=true,
+     * type="User",
+     * format="int64",
+     * paramType="body"
+     * ),
+     * @SWG\ResponseMessage(code=400, message="Invalid parameters passed"),
+     * @SWG\ResponseMessage(code=404, message="User not found")
+     * )
+     * )
+     */
     public function create($data)
     {
-         $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+        $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
         $user = new \User\Entity\User();
         if ($this->getRequest()->isPost()) {
             $user->setData($data);

@@ -8,5 +8,9 @@ $baseDir = dirname($vendorDir);
 return array(
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
     'SqlFormatter' => $vendorDir . '/jdorn/sql-formatter/lib/SqlFormatter.php',
+    'SwaggerModule\\Controller\\DocumentationController' => $vendorDir . '/outeredge/swagger-module/src/SwaggerModule/Controller/DocumentationController.php',
+    'SwaggerModule\\Module' => $vendorDir . '/outeredge/swagger-module/src/SwaggerModule/Module.php',
+    'SwaggerModule\\Options\\Exception\\RuntimeException' => $vendorDir . '/outeredge/swagger-module/src/SwaggerModule/Options/Exception/RuntimeException.php',
+    'SwaggerModule\\Options\\ModuleOptions' => $vendorDir . '/outeredge/swagger-module/src/SwaggerModule/Options/ModuleOptions.php',
     'ZendDeveloperTools\\Module' => $vendorDir . '/zendframework/zend-developer-tools/Module.php',
 );

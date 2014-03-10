@@ -15,6 +15,7 @@
         "doctrine/migrations": "dev-master",
         "doctrine/doctrine-migrations-bundle": "dev-master",
         "jms/serializer-bundle": "0.13.0",
-         "zircote/swagger-php": "*"
+         "outeredge/swagger-module": "dev-master",
+         "kbrabrand/zf2-swagger-example-module": "dev-master"
     }
 }
